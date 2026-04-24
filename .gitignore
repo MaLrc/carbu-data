@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Archives locales
+.archives
+r2_secret.sql
+data.parquet
+.env
+*.DS_Store

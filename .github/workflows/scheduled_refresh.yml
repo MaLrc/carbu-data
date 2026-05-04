@@ -76,9 +76,6 @@ jobs:
           );
           "
       
-      - name: test_secret
-        run: duckdb /tmp/evidence_secrets.db -c "from duckdb_secrets();"
-
       - name: build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}/dashboard'
@@ -90,7 +87,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'dashboard/build/${{ github.event.repository.name }}'
+          path: 'dashboard/build'
 
   deploy-dashboard:
     needs: build-dashboard

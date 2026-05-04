@@ -16,7 +16,7 @@ env:
 jobs:
   daily-refresh:
     runs-on: ubuntu-latest
-
+    environment: env
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -38,6 +38,7 @@ jobs:
   build-dashboard:
     needs: daily-refresh
     runs-on: ubuntu-latest
+    environment: env
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

@@ -55,13 +55,30 @@ jobs:
           cd dashboard
           npm install
 
+      - name: Install DuckDB CLI
+        run: |
+          curl -fsSL https://github.com/duckdb/duckdb/releases/latest/download/duckdb_cli-linux-amd64.zip -o duckdb.zip
+          unzip duckdb.zip
+          chmod +x duckdb
+          sudo mv duckdb /usr/local/bin/
+
+      - name: Pre-create R2 secret in DuckDB
+        run: |
+          duckdb /tmp/evidence_secrets.db -c "
+          INSTALL httpfs; LOAD httpfs;
+          CREATE OR REPLACE SECRET r2 (
+            TYPE S3,
+            KEY_ID '${R2_ACCESS_KEY_ID}',
+            SECRET '${R2_SECRET_ACCESS_KEY}',
+            ENDPOINT '${R2_ACCOUNT_ID}.r2.cloudflarestorage.com',
+            REGION 'auto',
+            URL_STYLE 'path'
+          );
+          "
+
       - name: build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}/dashboard'
-          EVIDENCE_SOURCE__data__R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-          EVIDENCE_SOURCE__data__R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-          EVIDENCE_SOURCE__data__R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
-          EVIDENCE_SOURCE__data__R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
         run: |
           cd dashboard
           npm run sources

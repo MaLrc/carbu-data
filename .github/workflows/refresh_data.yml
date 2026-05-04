@@ -1,0 +1,36 @@
+name: refresh_data
+
+on:
+  # Allow manual runs from the Actions UI
+  workflow_dispatch: {}
+  schedule:
+    # Runs every Saturday and Sunday at 10:00 UTC. GitHub Actions uses UTC for cron schedules.
+    - cron: '0 9 * * *'
+
+env:
+  R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+  R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+  R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+  R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+
+jobs:
+  daily-refresh:
+    runs-on: ubuntu-latest
+    environment: env
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install uv (astral-sh)
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install dependencies with uv
+        run: uv sync
+
+      - name: Run refresh pipeline
+        run: uv run pipelines/pp_run.py

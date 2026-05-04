@@ -1,0 +1,16 @@
+name: data
+type: duckdb
+# options:
+#   # filename: ./local.db
+options:
+  commands:
+    - INSTALL httpfs; LOAD httpfs;
+    - |
+      CREATE SECRET r2_secret (
+          TYPE S3,
+          KEY_ID '${R2_ACCESS_KEY_ID}',
+          SECRET '${R2_SECRET_ACCESS_KEY}',
+          ENDPOINT '${R2_ENDPOINT}',
+          URL_STYLE 'path',
+          REGION 'auto'
+      );

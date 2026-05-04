@@ -50,10 +50,12 @@ def update_stations_infos_pipeline():
         FROM read_parquet('s3://prix-carburants/infos_stations/*.parquet')
       )
       SELECT DISTINCT s_id 
-      FROM read_parquet('s3://prix-carburants/daily_prices/*/*/*/*.parquet') s
+      FROM read_parquet('s3://prix-carburants/daily_prices/*/*/*/*.parquet', hive_partitioning=1) s
       LEFT JOIN cte_processed p
         ON p.Id_Pdv = s.s_id
-      WHERE s.p_maj_date >= '{latest_update}'
+      WHERE s.year::INT >= YEAR('{latest_update}'::DATE) 
+      AND s.month::INT >= MONTH('{latest_update}'::DATE) 
+      AND s.day::INT >= DAY('{latest_update}'::DATE)
       AND p.Id_Pdv IS NULL;
     """).fetchall()
 

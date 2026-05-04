@@ -2,6 +2,7 @@ from pp_r2_daily_prices import daily_refresh_pipeline, create_history_pipeline
 from pp_r2_stocks_data import stocks_data_pipeline
 from pp_r2_communes import communes_data_pipeline
 from pp_r2_infos_stations import update_stations_infos_pipeline
+from pp_r2_compact_prices import compact_daily_files_pipeline
 from loguru import logger
 import click
 
@@ -23,6 +24,9 @@ def run_pipelines(from_year):
   
   logger.info('RUN update_stations_infos_pipeline')
   update_stations_infos_pipeline()
+  
+  logger.info('RUN compact_daily_files_pipeline')
+  compact_daily_files_pipeline()
     
 if __name__ == '__main__':
   run_pipelines()

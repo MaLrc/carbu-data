@@ -47,9 +47,10 @@ jobs:
       - name: build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}/dashboard'
-          ## Add and uncomment any environment variables here
-          ## EVIDENCE_SOURCE__my_source__username: ${{ secrets.EVIDENCE_SOURCE__MY_SOURCE__USERNAME }}
-          ## EVIDENCE_SOURCE__my_source__private_key: ${{ secrets.EVIDENCE_SOURCE__MY_SOURCE__PRIVATE_KEY }}
+          EVIDENCE_SOURCE__data__R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          EVIDENCE_SOURCE__data__R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          EVIDENCE_SOURCE__data__R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          EVIDENCE_SOURCE__data__R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
         run: |
           npm run sources
           npm run build

@@ -81,4 +81,4 @@ plugins:
     "@evidence-dev/motherduck": { }
 
 deployment:
-  basePath: /dashboard
+  basePath: /carbu-data

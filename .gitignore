@@ -15,3 +15,4 @@ r2_secret.sql
 data.parquet
 .env
 *.DS_Store
+.vscode/settings.json

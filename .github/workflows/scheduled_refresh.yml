@@ -14,29 +14,29 @@ env:
   R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
 
 jobs:
-  daily-refresh:
-    runs-on: ubuntu-latest
-    environment: env
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  # daily-refresh:
+  #   runs-on: ubuntu-latest
+  #   environment: env
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.12'
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v4
+  #       with:
+  #         python-version: '3.12'
 
-      - name: Install uv (astral-sh)
-        uses: astral-sh/setup-uv@v6
+  #     - name: Install uv (astral-sh)
+  #       uses: astral-sh/setup-uv@v6
 
-      - name: Install dependencies with uv
-        run: uv sync
+  #     - name: Install dependencies with uv
+  #       run: uv sync
 
-      - name: Run refresh pipeline
-        run: uv run pipelines/pp_run.py
+  #     - name: Run refresh pipeline
+  #       run: uv run pipelines/pp_run.py
   
   build-dashboard:
-    needs: daily-refresh
+    # needs: daily-refresh
     runs-on: ubuntu-latest
     environment: env
     steps:

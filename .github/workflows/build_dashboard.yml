@@ -6,7 +6,7 @@ on:
 
   # Déclenché par le workflow refresh
   workflow_run:
-    workflows: ["daily_refresh"]
+    workflows: ["refresh_data"]
     types: [completed]
   
   # Déclenché par un push sur main dans le dossier dashboard

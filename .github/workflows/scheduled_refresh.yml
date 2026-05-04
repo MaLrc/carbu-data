@@ -75,6 +75,9 @@ jobs:
             URL_STYLE 'path'
           );
           "
+      
+      - name: test_secret
+        run: duckdb /tmp/evidence_secrets.db -c "from duckdb_secrets();"
 
       - name: build
         env:

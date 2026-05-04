@@ -30,6 +30,7 @@ SELECT
     s.nom,
     s.marque,
     s.ville,
+    s.cp AS "Code Postal",
     p_carburant as carburant,
     p_prix as prix
 FROM data.prix_jour p
@@ -43,6 +44,7 @@ WITH r AS (
         s.nom AS Nom,
         s.marque AS Marque,
         s.ville AS Ville,
+        s.cp AS "Code Postal",
         p_carburant as carburant,
         p_prix as prix
     FROM data.prix_jour p
@@ -62,8 +64,9 @@ USING FIRST(prix)
     rowNumbers=true
 >
     <Column id=Marque /> 
-    <Column id=Nom /> 
+    <Column id='Code Postal' /> 
     <Column id=Ville /> 
+    <Column id=Nom /> 
     <Column id=E10 contentType=colorscale colorScale=negative fmt='#,##0.00€' /> 
     <Column id=E85 contentType=colorscale colorScale=negative fmt='#,##0.00€' /> 
     <Column id=GPLc contentType=colorscale colorScale=negative fmt='#,##0.00€' /> 
@@ -78,10 +81,11 @@ USING FIRST(prix)
     data={prix_jour}
     search=true
 >
-    <Column id=date /> 
-    <Column id=nom /> 
     <Column id=marque /> 
+    <Column id='Code Postal' /> 
     <Column id=ville /> 
+    <Column id=nom /> 
+    <Column id=date /> 
     <Column id=carburant /> 
     <Column id=prix fmt='#,##0.00€' /> 
 </DataTable>

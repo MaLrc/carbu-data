@@ -82,3 +82,6 @@ plugins:
 
 deployment:
   basePath: /carbu-data
+
+queries:
+  hide_by_default: true
